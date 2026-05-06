@@ -11,3 +11,9 @@ onMounted(() => {
   fetchUser()
 })
 </script>
+
+<style>
+body {
+    font-family: 'Onest', sans-serif;
+}
+</style>

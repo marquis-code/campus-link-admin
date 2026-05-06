@@ -646,8 +646,8 @@ const _inlineRuntimeConfig = {
     }
   },
   "public": {
-    "apiBase": "http://localhost:3000/api",
-    "appUrl": "http://localhost:3003",
+    "apiBase": "https://campus-link-backend-hq.onrender.com/api",
+    "appUrl": "http://localhost:3002",
     "firebaseApiKey": "",
     "firebaseAuthDomain": "",
     "firebaseProjectId": "",

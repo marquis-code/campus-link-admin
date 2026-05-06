@@ -1,20 +1,21 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from "nuxt/config";
+
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: false },
   modules: ['@nuxtjs/tailwindcss'],
-  css: ['~/assets/css/main.css'],
+    css: ['~/assets/font/stylesheet.css', '~/assets/css/main.css'],
   ssr: false,
   build: {
     transpile: ["lucide-vue-next"],
   },
   postcss: {
     plugins: {
-      "postcss-import": {},
-      "tailwindcss/nesting": {},
-      tailwindcss: {},
       autoprefixer: {},
     },
+  },
+  tailwindcss: {
+    configPath: '~/tailwind.config.js',
   },
   vite: {
     server: {
@@ -39,7 +40,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBase: process.env.VITE_BASE_URL || 'http://localhost:3000/api',
-      appUrl: process.env.APP_URL || 'http://localhost:3003',
+      appUrl: process.env.APP_URL || 'http://localhost:3002',
       firebaseApiKey: process.env.VITE_FIREBASE_API_KEY,
       firebaseAuthDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN,
       firebaseProjectId: process.env.VITE_FIREBASE_PROJECT_ID,
@@ -49,10 +50,15 @@ export default defineNuxtConfig({
     },
   },
   imports: {
-    dirs: ['composables', 'composables/**', 'composables/modules/**'],
+    dirs: [
+      'composables',
+      'composables/**',
+      'composables/core',
+      'composables/modules/**'
+    ]
   },
   devServer: {
-    port: 3003,
+    port: 3002,
     host: 'localhost',
   },
 })

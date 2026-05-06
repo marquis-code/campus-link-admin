@@ -93,9 +93,11 @@ declare global {
   const tryUseNuxtApp: typeof import('../../node_modules/nuxt/dist/app/nuxt')['tryUseNuxtApp']
   const unref: typeof import('vue')['unref']
   const updateAppConfig: typeof import('../../node_modules/nuxt/dist/app/config')['updateAppConfig']
+  const useAdmin: typeof import('../../composables/useAdmin')['useAdmin']
   const useAppConfig: typeof import('../../node_modules/nuxt/dist/app/config')['useAppConfig']
   const useAsyncData: typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['useAsyncData']
   const useAttrs: typeof import('vue')['useAttrs']
+  const useAuth: typeof import('../../composables/useAuth')['useAuth']
   const useChatState: typeof import('../../composables/modules/chat/useChatState')['useChatState']
   const useCookie: typeof import('../../node_modules/nuxt/dist/app/composables/cookie')['useCookie']
   const useCssModule: typeof import('vue')['useCssModule']
@@ -112,6 +114,8 @@ declare global {
   const useFetchProducts: typeof import('../../composables/modules/products/useFetchProducts')['useFetchProducts']
   const useFetchStats: typeof import('../../composables/modules/admin/useFetchStats')['useFetchStats']
   const useFetchUser: typeof import('../../composables/modules/auth/useFetchUser')['useFetchUser']
+  const useFetchUsers: typeof import('../../composables/modules/admin/useFetchUsers')['useFetchUsers']
+  const useFetchWithdrawals: typeof import('../../composables/modules/withdrawals/useFetchWithdrawals')['useFetchWithdrawals']
   const useFirebase: typeof import('../../composables/core/useFirebase')['useFirebase']
   const useHead: typeof import('../../node_modules/@unhead/vue')['useHead']
   const useHeadSafe: typeof import('../../node_modules/@unhead/vue')['useHeadSafe']
@@ -175,7 +179,10 @@ declare global {
   const useState: typeof import('../../node_modules/nuxt/dist/app/composables/state')['useState']
   const useTemplateRef: typeof import('vue')['useTemplateRef']
   const useTransitionState: typeof import('vue')['useTransitionState']
+  const useUpdateWithdrawalStatus: typeof import('../../composables/modules/withdrawals/useUpdateWithdrawalStatus')['useUpdateWithdrawalStatus']
   const useUser: typeof import('../../composables/modules/auth/user')['useUser']
+  const useUserManagement: typeof import('../../composables/modules/admin/useUserManagement')['useUserManagement']
+  const useWithdrawals: typeof import('../../composables/useWithdrawals')['useWithdrawals']
   const watch: typeof import('vue')['watch']
   const watchEffect: typeof import('vue')['watchEffect']
   const watchPostEffect: typeof import('vue')['watchPostEffect']
@@ -289,9 +296,11 @@ declare module 'vue' {
     readonly tryUseNuxtApp: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/nuxt')['tryUseNuxtApp']>
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
     readonly updateAppConfig: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/config')['updateAppConfig']>
+    readonly useAdmin: UnwrapRef<typeof import('../../composables/useAdmin')['useAdmin']>
     readonly useAppConfig: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/config')['useAppConfig']>
     readonly useAsyncData: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['useAsyncData']>
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
+    readonly useAuth: UnwrapRef<typeof import('../../composables/useAuth')['useAuth']>
     readonly useChatState: UnwrapRef<typeof import('../../composables/modules/chat/useChatState')['useChatState']>
     readonly useCookie: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/cookie')['useCookie']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
@@ -308,6 +317,8 @@ declare module 'vue' {
     readonly useFetchProducts: UnwrapRef<typeof import('../../composables/modules/products/useFetchProducts')['useFetchProducts']>
     readonly useFetchStats: UnwrapRef<typeof import('../../composables/modules/admin/useFetchStats')['useFetchStats']>
     readonly useFetchUser: UnwrapRef<typeof import('../../composables/modules/auth/useFetchUser')['useFetchUser']>
+    readonly useFetchUsers: UnwrapRef<typeof import('../../composables/modules/admin/useFetchUsers')['useFetchUsers']>
+    readonly useFetchWithdrawals: UnwrapRef<typeof import('../../composables/modules/withdrawals/useFetchWithdrawals')['useFetchWithdrawals']>
     readonly useFirebase: UnwrapRef<typeof import('../../composables/core/useFirebase')['useFirebase']>
     readonly useHead: UnwrapRef<typeof import('../../node_modules/@unhead/vue')['useHead']>
     readonly useHeadSafe: UnwrapRef<typeof import('../../node_modules/@unhead/vue')['useHeadSafe']>
@@ -371,7 +382,10 @@ declare module 'vue' {
     readonly useState: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/state')['useState']>
     readonly useTemplateRef: UnwrapRef<typeof import('vue')['useTemplateRef']>
     readonly useTransitionState: UnwrapRef<typeof import('vue')['useTransitionState']>
+    readonly useUpdateWithdrawalStatus: UnwrapRef<typeof import('../../composables/modules/withdrawals/useUpdateWithdrawalStatus')['useUpdateWithdrawalStatus']>
     readonly useUser: UnwrapRef<typeof import('../../composables/modules/auth/user')['useUser']>
+    readonly useUserManagement: UnwrapRef<typeof import('../../composables/modules/admin/useUserManagement')['useUserManagement']>
+    readonly useWithdrawals: UnwrapRef<typeof import('../../composables/useWithdrawals')['useWithdrawals']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchEffect: UnwrapRef<typeof import('vue')['watchEffect']>
     readonly watchPostEffect: UnwrapRef<typeof import('vue')['watchPostEffect']>

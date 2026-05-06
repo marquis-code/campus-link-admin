@@ -4,7 +4,10 @@ type IslandComponent<T extends DefineComponent> = T & DefineComponent<{}, {refre
 interface _GlobalComponents {
       'Icon': typeof import("../components/Icon.vue")['default']
     'ChatWidget': typeof import("../components/chat/ChatWidget.vue")['default']
+    'UiAnimatedInput': typeof import("../components/ui/AnimatedInput.vue")['default']
     'UiEmptyState': typeof import("../components/ui/EmptyState.vue")['default']
+    'UiPhoneInput': typeof import("../components/ui/PhoneInput.vue")['default']
+    'UiSelectInput': typeof import("../components/ui/SelectInput.vue")['default']
     'UiSkeleton': typeof import("../components/ui/Skeleton.vue")['default']
     'NuxtWelcome': typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
     'NuxtLayout': typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
@@ -31,7 +34,10 @@ interface _GlobalComponents {
     'NuxtRouteAnnouncer': IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
       'LazyIcon': typeof import("../components/Icon.vue")['default']
     'LazyChatWidget': typeof import("../components/chat/ChatWidget.vue")['default']
+    'LazyUiAnimatedInput': typeof import("../components/ui/AnimatedInput.vue")['default']
     'LazyUiEmptyState': typeof import("../components/ui/EmptyState.vue")['default']
+    'LazyUiPhoneInput': typeof import("../components/ui/PhoneInput.vue")['default']
+    'LazyUiSelectInput': typeof import("../components/ui/SelectInput.vue")['default']
     'LazyUiSkeleton': typeof import("../components/ui/Skeleton.vue")['default']
     'LazyNuxtWelcome': typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
     'LazyNuxtLayout': typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
@@ -64,7 +70,10 @@ declare module 'vue' {
 
 export const Icon: typeof import("../components/Icon.vue")['default']
 export const ChatWidget: typeof import("../components/chat/ChatWidget.vue")['default']
+export const UiAnimatedInput: typeof import("../components/ui/AnimatedInput.vue")['default']
 export const UiEmptyState: typeof import("../components/ui/EmptyState.vue")['default']
+export const UiPhoneInput: typeof import("../components/ui/PhoneInput.vue")['default']
+export const UiSelectInput: typeof import("../components/ui/SelectInput.vue")['default']
 export const UiSkeleton: typeof import("../components/ui/Skeleton.vue")['default']
 export const NuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const NuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
@@ -91,7 +100,10 @@ export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components
 export const NuxtRouteAnnouncer: IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
 export const LazyIcon: typeof import("../components/Icon.vue")['default']
 export const LazyChatWidget: typeof import("../components/chat/ChatWidget.vue")['default']
+export const LazyUiAnimatedInput: typeof import("../components/ui/AnimatedInput.vue")['default']
 export const LazyUiEmptyState: typeof import("../components/ui/EmptyState.vue")['default']
+export const LazyUiPhoneInput: typeof import("../components/ui/PhoneInput.vue")['default']
+export const LazyUiSelectInput: typeof import("../components/ui/SelectInput.vue")['default']
 export const LazyUiSkeleton: typeof import("../components/ui/Skeleton.vue")['default']
 export const LazyNuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const LazyNuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
