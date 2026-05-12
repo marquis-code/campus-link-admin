@@ -12,7 +12,13 @@ export const useUserManagement = () => {
     loading.value = true;
     startLoading("Updating user...");
     try {
-      const res: any = await admin_api.updateUserStatus(userId, { status: newStatus });
+      const res: any = await admin_api.updateUserStatus(userId, { 
+        status: newStatus 
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+        }
+      });
       if (res.type !== "ERROR") {
         showToast(`User ${newStatus}`, "success");
         return res.data;

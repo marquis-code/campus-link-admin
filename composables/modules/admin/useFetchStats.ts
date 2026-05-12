@@ -1,25 +1,28 @@
 import { admin_api } from "@/api_factory/modules/admin";
-import { useLoader } from "@/composables/core/useLoader";
+import { ref } from "vue";
 
 export const useFetchStats = () => {
+  const stats = useState<any>("admin_stats", () => ({
+    totalUsers: 0,
+    totalOrders: 0,
+    totalEarnings: 0,
+    activeSellers: 0
+  }));
   const loading = ref(false);
-  const stats = ref(null);
-  const { startLoading, stopLoading } = useLoader();
 
   const fetchStats = async () => {
     loading.value = true;
-    startLoading("Fetching platform stats...");
     try {
       const res: any = await admin_api.getStats();
       if (res.type !== "ERROR") {
-        stats.value = res.data;
-        return res.data;
+        stats.value = res.data || stats.value;
       }
+    } catch (e) {
+      console.error('Failed to fetch stats', e)
     } finally {
       loading.value = false;
-      stopLoading();
     }
   };
 
-  return { loading, stats, fetchStats };
+  return { stats, loading, fetchStats };
 };

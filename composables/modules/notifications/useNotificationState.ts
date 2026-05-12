@@ -14,16 +14,34 @@ export const useNotificationState = () => {
   const initSocket = () => {
     if (socket || !token.value) return
 
-    socket = io(baseUrl, {
+    // Connect to /notifications namespace
+    socket = io(`${baseUrl}/notifications`, {
       auth: { token: token.value },
     })
 
     socket.on('connect', () => {
-      socket?.emit('join_user_room')
+      console.log('🔔 Notifications socket connected')
     })
 
     socket.on('notification', (notification) => {
       notifications.value.unshift(notification)
+      // Sound is handled in the UI component by watching unreadCount
+      unreadCount.value++
+    })
+
+    socket.on('unread_count', (data) => {
+      unreadCount.value = data.count
+    })
+
+    socket.on('system_alert', (alert) => {
+      notifications.value.unshift({
+        _id: Date.now().toString(),
+        title: alert.title,
+        message: alert.message,
+        type: 'info',
+        createdAt: new Date().toISOString(),
+        isRead: false
+      })
       unreadCount.value++
     })
   }

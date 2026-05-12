@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 export const useFirebase = () => {
@@ -13,11 +13,25 @@ export const useFirebase = () => {
     appId: config.public.firebaseAppId,
   };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
+  const isConfigured = !!firebaseConfig.apiKey;
+  let app: any = null;
+  let auth: any = null;
+  let provider: any = null;
+
+  try {
+    if (isConfigured) {
+      app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+      auth = getAuth(app);
+      provider = new GoogleAuthProvider();
+    }
+  } catch (e) {
+    console.error("Firebase initialization failed:", e);
+  }
 
   const loginWithGoogle = async () => {
+    if (!isConfigured || !auth || !provider) {
+      throw new Error("Firebase is not configured. Missing environment variables.");
+    }
     try {
       const result = await signInWithPopup(auth, provider);
       const idToken = await result.user.getIdToken();

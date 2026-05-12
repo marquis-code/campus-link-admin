@@ -9,11 +9,11 @@ export const useSendMessage = () => {
     content?: string;
     mediaUrl?: string;
   }) => {
-    socket?.emit('send_message', data)
+    socket.value?.emit('send_message', data)
   }
 
   const sendTyping = (conversationId: string, typing: boolean) => {
-    socket?.emit('typing', { conversationId, isTyping: typing })
+    socket.value?.emit('typing', { conversationId, isTyping: typing })
   }
 
   return { sendMessage, sendTyping }

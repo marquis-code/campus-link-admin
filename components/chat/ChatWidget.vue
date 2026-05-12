@@ -49,7 +49,7 @@
               </div>
             </div>
           </div>
-          <div v-if="isTyping" class="text-[10px] text-dark-400 italic">Support is typing...</div>
+          <div v-if="isTyping" class="text-[10px] text-dark-400 ">Support is typing...</div>
         </div>
 
         <!-- Input Area -->

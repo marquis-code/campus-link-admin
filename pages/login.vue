@@ -1,79 +1,105 @@
 <template>
-  <div class="min-h-screen bg-dark-950 flex flex-col items-center justify-center p-6">
-    <div class="w-full max-w-md space-y-10">
-      <div class="text-center space-y-2">
-        <h1 class="text-5xl font-black text-primary-500 tracking-tighter">CAMPUSLINK</h1>
-        <p class="text-dark-400 font-bold uppercase tracking-[0.2em] text-[10px]">Master Administrative Portal</p>
+  <div class="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 font-['Inter',sans-serif]">
+    <div class="w-full max-w-md space-y-8">
+      <div class="text-center space-y-3">
+        <div class="w-16 h-16 bg-primary-600 rounded-2xl mx-auto flex items-center justify-center">
+          <ShieldCheck class="text-white w-8 h-8" />
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 tracking-tight">CampusLink</h1>
+        <p class="text-gray-500 font-medium text-sm">Administrative access only</p>
       </div>
 
-      <div class="admin-card p-10 space-y-8 bg-dark-900 border-2 border-dark-800">
+      <div class="p-8 bg-white rounded-3xl border border-gray-100 shadow-sm">
         <form @submit.prevent="handleLogin" class="space-y-6">
           <div class="space-y-4">
-            <div>
-              <label class="block text-xs font-black text-dark-500 uppercase tracking-widest ml-1 mb-2">Admin Credentials</label>
-              <input v-model="form.email" type="email" required class="input-field py-4 border-2 border-dark-800 bg-dark-950 focus:border-primary-500 transition-colors" placeholder="Email" />
+            <div class="space-y-1.5">
+              <label class="text-xs font-semibold text-gray-500 ml-1">Email address</label>
+              <input 
+                v-model="form.email" 
+                type="email" 
+                required 
+                class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all outline-none text-sm" 
+                placeholder="admin@campuslink.com" 
+              />
             </div>
-            <input v-model="form.password" type="password" required class="input-field py-4 border-2 border-dark-800 bg-dark-950 focus:border-primary-500 transition-colors" placeholder="Password" />
+            <div class="space-y-1.5 relative">
+              <label class="text-xs font-semibold text-gray-500 ml-1">Password</label>
+              <div class="relative">
+                <input 
+                  v-model="form.password" 
+                  :type="showPassword ? 'text' : 'password'" 
+                  required 
+                  class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all outline-none text-sm pr-12" 
+                  placeholder="••••••••" 
+                />
+                <button 
+                  type="button" 
+                  @click="showPassword = !showPassword" 
+                  class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <Eye v-if="!showPassword" class="w-4 h-4" />
+                  <EyeOff v-else class="w-4 h-4" />
+                </button>
+              </div>
+            </div>
           </div>
           
-          <button type="submit" :disabled="loading" class="w-full bg-primary-600 text-white py-5 text-lg font-black uppercase tracking-widest hover:bg-primary-700 transition-all border-b-4 border-primary-900 active:border-b-0 active:translate-y-1 flex justify-center">
-            <template v-if="loading"><Icon name="ph:spinner-bold" class="animate-spin text-2xl" /></template>
-            <template v-else>Access Dashboard</template>
-          </button>
-
-          <div class="relative py-2">
-            <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-dark-800"></div></div>
-            <div class="relative flex justify-center text-[10px] uppercase tracking-widest"><span class="bg-dark-900 px-2 text-dark-500 font-black">Secure Social Auth</span></div>
-          </div>
-
-          <button @click="handleGoogleLogin" type="button" class="w-full flex items-center justify-center gap-3 py-4 border border-dark-800 rounded-xl font-bold text-dark-400 hover:bg-dark-800 transition-all">
-            <Icon name="logos:google-icon" class="text-lg" />
-            Admin Google Access
+          <button 
+            type="submit" 
+            :disabled="loading" 
+            class="w-full bg-primary-600 text-white py-3.5 rounded-xl text-sm font-bold hover:bg-primary-700 transition-all active:scale-[0.98] flex justify-center items-center gap-2"
+          >
+            <Loader2 v-if="loading" class="animate-spin w-5 h-5" />
+            <template v-else>Access dashboard</template>
           </button>
         </form>
       </div>
       
-      <p class="text-center text-dark-600 text-[10px] font-black uppercase tracking-widest">Authorized Access Only • CampusLink Security</p>
+      <p class="text-center text-gray-400 text-xs font-medium italic">Security monitored session • Unauthorized access is prohibited</p>
     </div>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
+import { ShieldCheck, Loader2, Eye, EyeOff } from 'lucide-vue-next'
+
 definePageMeta({ layout: false })
-const { login, socialLogin } = useAuth()
-const { loginWithGoogle } = useFirebase()
+
 const loading = ref(false)
+const showPassword = ref(false)
 const form = reactive({ email: '', password: '' })
+
+const { login } = useAuth()
+const { showToast } = useCustomToast()
 
 const handleLogin = async () => {
   loading.value = true
   try {
     const res = await login(form)
     if (res.user.role !== 'admin') {
-      alert('Unauthorized access attempt.')
+      showToast({
+        title: 'Unauthorized',
+        message: 'This account does not have administrative privileges.',
+        toastType: 'error'
+      })
       useAuth().logout()
       return
     }
-    navigateTo('/')
-  } catch (e) {
-    alert('Access denied. Check your credentials.')
+    showToast({
+      title: 'Welcome back',
+      message: `Signed in as ${res.user.name}`,
+      toastType: 'success'
+    })
+    navigateTo('/dashboard')
+  } catch (e: any) {
+    showToast({
+      title: 'Login failed',
+      message: e?.data?.message || 'Invalid credentials. Please check your email and password.',
+      toastType: 'error'
+    })
   } finally {
     loading.value = false
-  }
-}
-
-const handleGoogleLogin = async () => {
-  try {
-    const idToken = await loginWithGoogle()
-    const res = await socialLogin(idToken)
-    if (res.user.role !== 'admin') {
-      alert('Unauthorized access attempt.')
-      useAuth().logout()
-      return
-    }
-    navigateTo('/')
-  } catch (e) {
-    alert('Google login failed')
   }
 }
 </script>

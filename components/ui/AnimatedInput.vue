@@ -120,7 +120,7 @@
               </button>
               
               <div class="flex gap-2">
-                <span class="text-[11px]  uppercase tracking-widest text-gray-900">
+                <span class="text-[11px]  uppercase  text-gray-900">
                   {{ months[currentMonth] }} {{ currentYear }}
                 </span>
               </div>
@@ -165,14 +165,14 @@
              <button 
               type="button" 
               @click.stop="setToday" 
-              class="flex-1 py-3 text-[9px]  uppercase tracking-widest border border-gray-100 hover:bg-gray-50 rounded-xl transition-all"
+              class="flex-1 py-3 text-[9px]  uppercase  border border-gray-100 hover:bg-gray-50 rounded-xl transition-all"
             >
               Today
             </button>
             <button 
               type="button" 
               @click.stop="clearDateValue" 
-              class="flex-1 py-3 text-[9px]  uppercase tracking-widest bg-gray-900 text-white rounded-xl transition-all hover:bg-black shadow-lg shadow-gray-200"
+              class="flex-1 py-3 text-[9px]  uppercase  bg-gray-900 text-white rounded-xl transition-all hover:bg-black shadow-lg shadow-gray-200"
             >
               Clear
             </button>

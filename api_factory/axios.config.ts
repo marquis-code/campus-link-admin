@@ -53,9 +53,12 @@ const instanceArray = [
 
 instanceArray.forEach((instance) => {
   instance.interceptors.request.use((config: any) => {
-    const { token } = useUser();
-    if (token.value) {
-      config.headers.Authorization = `Bearer ${token.value}`;
+    let token = null;
+    if (typeof window !== "undefined") {
+      token = localStorage.getItem("auth_token");
+    }
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   });
@@ -65,8 +68,15 @@ instanceArray.forEach((instance) => {
       return response;
     },
     (err: any) => {
-      const { logOut } = useUser();
       const { showToast } = useCustomToast();
+      
+      const logOut = () => {
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("user_data");
+          localStorage.removeItem("auth_token");
+          window.location.href = "/login";
+        }
+      };
       
       if (typeof err.response === "undefined") {
         showToast({

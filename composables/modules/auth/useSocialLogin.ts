@@ -14,9 +14,14 @@ export const useSocialLogin = () => {
     try {
       const res: any = await auth_api.firebaseLogin(idToken);
       if (res.type !== "ERROR") {
-        user.value = res.data.user;
-        token.value = res.data.token;
-        return res.data;
+        const payload = res?.data?.data || res?.data || res;
+        if (payload.user) {
+          user.value = payload.user;
+        }
+        if (payload.token) {
+          token.value = payload.token;
+        }
+        return payload;
       }
     } finally {
       loading.value = false;

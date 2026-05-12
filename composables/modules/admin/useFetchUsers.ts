@@ -1,4 +1,5 @@
 import { admin_api } from "@/api_factory/modules/admin";
+import { ref } from "vue";
 
 export const useFetchUsers = () => {
   const users = useState<any[]>("admin_users", () => []);
@@ -9,9 +10,13 @@ export const useFetchUsers = () => {
     try {
       const res: any = await admin_api.getUsers(params);
       if (res.type !== "ERROR") {
-        users.value = res.data.users;
+        users.value = res.data?.users || [];
         return res.data;
+      } else {
+        users.value = [];
       }
+    } catch (e) {
+      users.value = [];
     } finally {
       loading.value = false;
     }

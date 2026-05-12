@@ -31,9 +31,12 @@ export { injectHead, useHead, useSeoMeta, useHeadSafe, useServerHead, useServerS
 export { useAdmin } from '../composables/useAdmin';
 export { useAuth } from '../composables/useAuth';
 export { useWithdrawals } from '../composables/useWithdrawals';
+export { useConfirmDialog } from '../composables/core/useConfirmDialog';
 export { useCustomToast } from '../composables/core/useCustomToast';
 export { useFirebase } from '../composables/core/useFirebase';
 export { useLoader } from '../composables/core/useLoader';
+export { useCampusManagement } from '../composables/modules/admin/useCampusManagement';
+export { useCategoryManagement } from '../composables/modules/admin/useCategoryManagement';
 export { useFetchStats } from '../composables/modules/admin/useFetchStats';
 export { useFetchUsers } from '../composables/modules/admin/useFetchUsers';
 export { useUserManagement } from '../composables/modules/admin/useUserManagement';
