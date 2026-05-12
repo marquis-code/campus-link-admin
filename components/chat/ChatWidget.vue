@@ -18,7 +18,7 @@
             </div>
             <div>
               <h3 class="font-bold text-sm">CampusLink Support</h3>
-              <p class="text-[10px] text-primary-200 flex items-center gap-1">
+              <p class="text-sm text-primary-200 flex items-center gap-1">
                 <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
                 Online
               </p>
@@ -44,12 +44,12 @@
               <img v-if="msg.type === 'image'" :src="msg.mediaUrl" class="rounded-lg mb-1" />
               <audio v-if="msg.type === 'voice'" :src="msg.mediaUrl" controls class="max-w-full h-8" />
               <video v-if="msg.type === 'video'" :src="msg.mediaUrl" controls class="rounded-lg max-w-full" />
-              <div class="text-[10px] mt-1 opacity-70 text-right">
+              <div class="text-sm mt-1 opacity-70 text-right">
                 {{ formatTime(msg.createdAt) }}
               </div>
             </div>
           </div>
-          <div v-if="isTyping" class="text-[10px] text-dark-400 ">Support is typing...</div>
+          <div v-if="isTyping" class="text-sm text-dark-400 ">Support is typing...</div>
         </div>
 
         <!-- Input Area -->

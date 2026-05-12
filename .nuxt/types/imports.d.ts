@@ -119,6 +119,7 @@ declare global {
   const useFetchUser: typeof import('../../composables/modules/auth/useFetchUser')['useFetchUser']
   const useFetchUsers: typeof import('../../composables/modules/admin/useFetchUsers')['useFetchUsers']
   const useFetchWithdrawals: typeof import('../../composables/modules/withdrawals/useFetchWithdrawals')['useFetchWithdrawals']
+  const useFileUpload: typeof import('../../composables/core/useFileUpload')['useFileUpload']
   const useFirebase: typeof import('../../composables/core/useFirebase')['useFirebase']
   const useHead: typeof import('../../node_modules/@unhead/vue')['useHead']
   const useHeadSafe: typeof import('../../node_modules/@unhead/vue')['useHeadSafe']
@@ -325,6 +326,7 @@ declare module 'vue' {
     readonly useFetchUser: UnwrapRef<typeof import('../../composables/modules/auth/useFetchUser')['useFetchUser']>
     readonly useFetchUsers: UnwrapRef<typeof import('../../composables/modules/admin/useFetchUsers')['useFetchUsers']>
     readonly useFetchWithdrawals: UnwrapRef<typeof import('../../composables/modules/withdrawals/useFetchWithdrawals')['useFetchWithdrawals']>
+    readonly useFileUpload: UnwrapRef<typeof import('../../composables/core/useFileUpload')['useFileUpload']>
     readonly useFirebase: UnwrapRef<typeof import('../../composables/core/useFirebase')['useFirebase']>
     readonly useHead: UnwrapRef<typeof import('../../node_modules/@unhead/vue')['useHead']>
     readonly useHeadSafe: UnwrapRef<typeof import('../../node_modules/@unhead/vue')['useHeadSafe']>

@@ -33,6 +33,7 @@ export { useAuth } from '../composables/useAuth';
 export { useWithdrawals } from '../composables/useWithdrawals';
 export { useConfirmDialog } from '../composables/core/useConfirmDialog';
 export { useCustomToast } from '../composables/core/useCustomToast';
+export { useFileUpload } from '../composables/core/useFileUpload';
 export { useFirebase } from '../composables/core/useFirebase';
 export { useLoader } from '../composables/core/useLoader';
 export { useCampusManagement } from '../composables/modules/admin/useCampusManagement';

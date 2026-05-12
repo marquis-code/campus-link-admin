@@ -100,7 +100,7 @@
         >
           <!-- Compact Header -->
           <div class="bg-gray-900 p-6 text-white text-center">
-            <h3 class="text-[10px]  uppercase  opacity-60 mb-1">Select Schedule</h3>
+            <h3 class="text-sm  uppercase  opacity-60 mb-1">Select Schedule</h3>
             <p class="text-lg  tracking-tight">
               {{ selectedDate ? formatDateDisplay(selectedDate) : 'Availability Calendar' }}
             </p>

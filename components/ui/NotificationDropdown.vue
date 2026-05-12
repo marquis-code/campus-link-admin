@@ -19,7 +19,7 @@
       <div v-if="isOpen" class="absolute right-0 mt-3 w-80 md:w-96 bg-white border border-gray-100 rounded-[32px] shadow-2xl z-[100] overflow-hidden">
         <div class="p-6 border-b border-gray-50 flex items-center justify-between">
           <h3 class="font-bold text-gray-900">Notifications</h3>
-          <button @click="markAllRead" class="text-[10px] font-bold text-primary-600 uppercase tracking-wider hover:underline">Mark all as read</button>
+          <button @click="markAllRead" class="text-sm font-bold text-primary-600  tracking-wider hover:underline">Mark all as read</button>
         </div>
 
         <div class="max-h-[400px] overflow-y-auto">
@@ -27,7 +27,7 @@
             <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <BellOff class="w-8 h-8 text-gray-200" />
             </div>
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">No notifications yet</p>
+            <p class="text-xs font-bold text-gray-400  tracking-widest">No notifications yet</p>
           </div>
 
           <div v-else class="divide-y divide-gray-50">
@@ -46,14 +46,14 @@
                   <div v-if="!n.isRead" class="w-1.5 h-1.5 bg-primary-600 rounded-full shrink-0"></div>
                 </div>
                 <p class="text-[12px] text-gray-500 font-medium leading-relaxed mb-2">{{ n.message }}</p>
-                <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">{{ formatTime(n.createdAt) }}</span>
+                <span class="text-[9px] font-bold text-gray-400  tracking-widest">{{ formatTime(n.createdAt) }}</span>
               </div>
             </div>
           </div>
         </div>
 
         <div class="p-4 bg-gray-50/50 text-center">
-           <NuxtLink to="/dashboard/notifications" @click="isOpen = false" class="text-[11px] font-bold text-gray-500 uppercase tracking-widest hover:text-gray-900 block w-full">View all history</NuxtLink>
+           <NuxtLink to="/dashboard/notifications" @click="isOpen = false" class="text-[11px] font-bold text-gray-500  tracking-widest hover:text-gray-900 block w-full">View all history</NuxtLink>
         </div>
       </div>
     </Transition>

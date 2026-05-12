@@ -55,7 +55,7 @@
                 </div>
               </td>
               <td class="px-8 py-4">
-                <span class="px-2.5 py-1 rounded-lg text-[10px] font-bold tracking-tight" :class="u.role === 'seller' ? 'bg-emerald-50 text-emerald-600' : 'bg-primary-50 text-primary-600'">
+                <span class="px-2.5 py-1 rounded-lg text-sm font-bold tracking-tight" :class="u.role === 'seller' ? 'bg-emerald-50 text-emerald-600' : 'bg-primary-50 text-primary-600'">
                   {{ u.role }}
                 </span>
               </td>

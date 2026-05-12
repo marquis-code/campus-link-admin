@@ -68,7 +68,7 @@
               </td>
               <td class="px-8 py-5" @click="handleNotificationClick(n)">
                 <span 
-                  class="px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-tight"
+                  class="px-2.5 py-1 rounded-lg text-sm font-bold uppercase tracking-tight"
                   :class="getCategoryClass(n.type)"
                 >
                   {{ n.type }}

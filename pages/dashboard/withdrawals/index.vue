@@ -33,7 +33,7 @@
                 <div class="text-[11px] text-gray-400 font-medium">{{ w.bankAccountNumber }} • {{ w.bankAccountName }}</div>
               </td>
               <td class="px-8 py-4">
-                <span class="px-2.5 py-1 rounded-lg text-[10px] font-bold tracking-tight" :class="statusClass(w.status)">
+                <span class="px-2.5 py-1 rounded-lg text-sm font-bold tracking-tight" :class="statusClass(w.status)">
                   {{ w.status }}
                 </span>
               </td>

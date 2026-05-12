@@ -26,12 +26,12 @@
 
             <div class="p-10 space-y-8">
               <div class="text-center space-y-3">
-                <h3 class="text-2xl font-bold text-gray-900 tracking-tight">{{ title }}</h3>
+                <h3 class="text-2xl font-bold text-gray-900 ">{{ title }}</h3>
                 <p class="text-gray-500 font-medium leading-relaxed">{{ message }}</p>
               </div>
 
               <div class="space-y-2">
-                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Admin notes</label>
+                <label class="text-sm font-black  tracking-widest text-gray-400 ml-1">Admin notes</label>
                 <textarea 
                   v-model="input" 
                   class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50 focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-50 outline-none text-sm font-medium transition-all resize-none"
@@ -43,13 +43,13 @@
               <div class="flex flex-col gap-3">
                 <button 
                   @click="$emit('confirm', input)"
-                  class="w-full py-4 px-6 rounded-2xl font-bold text-white bg-primary-600 hover:bg-primary-700 transition-all active:scale-[0.98] shadow-lg shadow-primary-200"
+                  class="w-full py-3 px-6 rounded-2xl font-bold text-white bg-black transition-all active:scale-[0.98] shadow-lg shadow-primary-200"
                 >
                   {{ confirmText }}
                 </button>
                 <button 
                   @click="$emit('cancel')"
-                  class="w-full py-4 px-6 rounded-2xl font-bold text-gray-400 hover:text-gray-900 hover:bg-gray-50 transition-all active:scale-[0.98]"
+                  class="w-full py-4 px-6 rounded-2xl bg-gray-300 font-bold text-gray-700 transition-all active:scale-[0.98]"
                 >
                   Cancel
                 </button>

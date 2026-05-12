@@ -61,14 +61,14 @@
                 {{ campus.address || 'Nigerian Institution' }}
               </td>
               <td class="px-8 py-5 text-center">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-bold bg-primary-50 text-primary-600 uppercase tracking-tight">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-sm font-bold bg-primary-50 text-primary-600 uppercase tracking-tight">
                   {{ campus.studentsCount || 0 }} Active
                 </span>
               </td>
               <td class="px-8 py-5">
                 <div class="flex items-center gap-1.5">
                    <div class="w-1.5 h-1.5 rounded-full" :class="campus.isActive ? 'bg-emerald-500' : 'bg-gray-300'"></div>
-                   <span class="text-[10px] font-bold uppercase tracking-wide" :class="campus.isActive ? 'text-emerald-600' : 'text-gray-400'">{{ campus.isActive ? 'Active' : 'Inactive' }}</span>
+                   <span class="text-sm font-bold uppercase tracking-wide" :class="campus.isActive ? 'text-emerald-600' : 'text-gray-400'">{{ campus.isActive ? 'Active' : 'Inactive' }}</span>
                 </div>
               </td>
               <td class="px-8 py-5 text-right">

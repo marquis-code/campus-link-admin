@@ -9,7 +9,7 @@
           </div>
           <h1 class="text-xl font-bold text-gray-900 tracking-tight">CampusLink</h1>
         </div>
-        <p class="text-[10px] font-semibold text-gray-400 tracking-wider ml-10">Admin Hub</p>
+        <p class="text-sm font-semibold text-gray-400 tracking-wider ml-10">Admin Hub</p>
       </div>
 
       <nav class="flex-1 px-3 space-y-1 mt-4">
@@ -18,7 +18,7 @@
           :key="item.to" 
           :to="item.to" 
           class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all group" 
-          :class="route.path === item.to ? 'bg-primary-50 text-primary-600' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'"
+          :class="isActive(item.to) ? 'bg-primary-50 text-primary-600' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'"
         >
           <component :is="item.icon" class="w-5 h-5" />
           {{ item.name }}
@@ -52,7 +52,7 @@
           <div class="flex items-center gap-3">
              <div class="text-right hidden sm:block">
                 <p class="text-[13px] font-bold text-gray-900">{{ user?.name || 'Administrator' }}</p>
-                <p class="text-[10px] font-bold text-primary-600 uppercase tracking-tighter">Super admin</p>
+                <p class="text-sm font-bold text-primary-600 uppercase tracking-tighter">Super admin</p>
              </div>
              <div class="w-9 h-9 md:w-10 md:h-10 rounded-full bg-primary-100 border-2 border-primary-50 overflow-hidden shrink-0">
                 <img v-if="user?.avatar" :src="user.avatar" class="w-full h-full object-cover" />
@@ -111,7 +111,7 @@
                 :to="item.to" 
                 @click="showMobileMenu = false"
                 class="flex items-center gap-4 px-5 py-4 rounded-2xl font-bold text-base transition-all" 
-                :class="route.path === item.to ? 'bg-primary-50 text-primary-600' : 'text-gray-500'"
+                :class="isActive(item.to) ? 'bg-primary-50 text-primary-600' : 'text-gray-500'"
               >
                 <component :is="item.icon" class="w-6 h-6" />
                 {{ item.name }}
@@ -162,8 +162,13 @@ const navItems = [
   { name: 'Notifications', to: '/dashboard/notifications', icon: Bell },
 ]
 
+const isActive = (path) => {
+  if (path === '/dashboard') return route.path === '/dashboard'
+  return route.path.startsWith(path)
+}
+
 const activePageName = computed(() => {
-  const item = navItems.find(i => route.path === i.to)
+  const item = navItems.find(i => isActive(i.to))
   return item ? item.name : 'Admin'
 })
 

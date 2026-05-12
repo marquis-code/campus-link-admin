@@ -61,14 +61,14 @@
                 {{ cat.description || 'Global product category' }}
               </td>
               <td class="px-8 py-5 text-center">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-bold bg-indigo-50 text-indigo-600 uppercase tracking-tight">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-sm font-bold bg-indigo-50 text-indigo-600 uppercase tracking-tight">
                   {{ cat.productsCount || 0 }} Items
                 </span>
               </td>
               <td class="px-8 py-5">
                 <div class="flex items-center gap-1.5">
                    <div class="w-1.5 h-1.5 rounded-full" :class="cat.isActive ? 'bg-emerald-500' : 'bg-gray-300'"></div>
-                   <span class="text-[10px] font-bold uppercase tracking-wide" :class="cat.isActive ? 'text-emerald-600' : 'text-gray-400'">{{ cat.isActive ? 'Active' : 'Inactive' }}</span>
+                   <span class="text-sm font-bold uppercase tracking-wide" :class="cat.isActive ? 'text-emerald-600' : 'text-gray-400'">{{ cat.isActive ? 'Active' : 'Inactive' }}</span>
                 </div>
               </td>
               <td class="px-8 py-5 text-right">
