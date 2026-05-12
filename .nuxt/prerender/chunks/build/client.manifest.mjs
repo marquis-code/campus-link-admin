@@ -1,4 +1,4 @@
-{
+const client_manifest = {
   "_BIIei4U1.js": {
     "resourceType": "script",
     "module": true,
@@ -441,4 +441,7 @@
       "node_modules/nuxt/dist/app/entry.js"
     ]
   }
-}
+};
+
+export { client_manifest as default };
+//# sourceMappingURL=client.manifest.mjs.map

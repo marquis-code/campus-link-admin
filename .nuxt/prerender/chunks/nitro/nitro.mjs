@@ -1,38 +1,22 @@
-import process from 'node:process';globalThis._importMeta_={url:import.meta.url,env:process.env};import { tmpdir } from 'node:os';
-import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, createError, sendRedirect, proxyRequest, getRequestHeader, setResponseStatus, setResponseHeader, send, getRequestHeaders, getRequestURL, getResponseHeader, setResponseHeaders, removeResponseHeader, appendResponseHeader, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus, getRouterParam, readBody, getQuery as getQuery$1, getResponseStatusText } from 'file:///Users/marquis/campus-link/admin/node_modules/h3/dist/index.mjs';
-import { Server } from 'node:http';
-import { resolve, dirname, join } from 'node:path';
-import nodeCrypto from 'node:crypto';
-import { parentPort, threadId } from 'node:worker_threads';
-import { getRequestDependencies, getPreloadLinks, getPrefetchLinks, createRenderer } from 'file:///Users/marquis/campus-link/admin/node_modules/vue-bundle-renderer/dist/runtime.mjs';
-import { stringify, uneval } from 'file:///Users/marquis/campus-link/admin/node_modules/devalue/index.js';
+import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, createError, sendRedirect, proxyRequest, getRequestHeader, setResponseStatus, setResponseHeader, send, getRequestHeaders, getRequestURL, getResponseHeader, setResponseHeaders, removeResponseHeader, appendResponseHeader, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus } from 'file:///Users/marquis/campus-link/admin/node_modules/h3/dist/index.mjs';
 import destr from 'file:///Users/marquis/campus-link/admin/node_modules/destr/dist/index.mjs';
-import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, decodePath, withLeadingSlash, withoutTrailingSlash, joinRelativeURL } from 'file:///Users/marquis/campus-link/admin/node_modules/ufo/dist/index.mjs';
-import { propsToString, renderSSRHead } from 'file:///Users/marquis/campus-link/admin/node_modules/@unhead/ssr/dist/index.mjs';
 import { createHooks } from 'file:///Users/marquis/campus-link/admin/node_modules/hookable/dist/index.mjs';
 import { createFetch, Headers as Headers$1 } from 'file:///Users/marquis/campus-link/admin/node_modules/ofetch/dist/node.mjs';
 import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file:///Users/marquis/campus-link/admin/node_modules/node-mock-http/dist/index.mjs';
-import { createStorage, prefixStorage } from 'file:///Users/marquis/campus-link/admin/node_modules/unstorage/dist/index.mjs';
+import { parseURL, withoutBase, joinURL, getQuery, withQuery, decodePath, withLeadingSlash, withoutTrailingSlash } from 'file:///Users/marquis/campus-link/admin/node_modules/ufo/dist/index.mjs';
+import { createStorage, defineDriver, prefixStorage } from 'file:///Users/marquis/campus-link/admin/node_modules/unstorage/dist/index.mjs';
 import unstorage_47drivers_47fs from 'file:///Users/marquis/campus-link/admin/node_modules/unstorage/drivers/fs.mjs';
+import fsDriver from 'file:///Users/marquis/campus-link/admin/node_modules/unstorage/drivers/fs-lite.mjs';
+import lruCache from 'file:///Users/marquis/campus-link/admin/node_modules/unstorage/drivers/lru-cache.mjs';
 import { digest } from 'file:///Users/marquis/campus-link/admin/node_modules/ohash/dist/index.mjs';
 import { klona } from 'file:///Users/marquis/campus-link/admin/node_modules/klona/dist/index.mjs';
 import defu, { defuFn } from 'file:///Users/marquis/campus-link/admin/node_modules/defu/dist/defu.mjs';
 import { snakeCase } from 'file:///Users/marquis/campus-link/admin/node_modules/scule/dist/index.mjs';
 import { getContext } from 'file:///Users/marquis/campus-link/admin/node_modules/unctx/dist/index.mjs';
 import { toRouteMatcher, createRouter } from 'file:///Users/marquis/campus-link/admin/node_modules/radix3/dist/index.mjs';
-import { readFile } from 'node:fs/promises';
-import consola, { consola as consola$1 } from 'file:///Users/marquis/campus-link/admin/node_modules/consola/dist/index.mjs';
-import { ErrorParser } from 'file:///Users/marquis/campus-link/admin/node_modules/youch-core/build/index.js';
-import { Youch } from 'file:///Users/marquis/campus-link/admin/node_modules/youch/build/index.js';
-import { SourceMapConsumer } from 'file:///Users/marquis/campus-link/admin/node_modules/source-map/source-map.js';
-import { AsyncLocalStorage } from 'node:async_hooks';
-import { captureRawStackTrace, parseRawStackTrace } from 'file:///Users/marquis/campus-link/admin/node_modules/errx/dist/index.js';
-import { isVNode, unref, version } from 'file:///Users/marquis/campus-link/admin/node_modules/vue/index.mjs';
 import { promises } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { dirname as dirname$1, resolve as resolve$1 } from 'file:///Users/marquis/campus-link/admin/node_modules/pathe/dist/index.mjs';
-import { createServerHead as createServerHead$1, CapoPlugin } from 'file:///Users/marquis/campus-link/admin/node_modules/unhead/dist/index.mjs';
-import { defineHeadPlugin } from 'file:///Users/marquis/campus-link/admin/node_modules/@unhead/shared/dist/index.mjs';
+import { dirname, resolve } from 'file:///Users/marquis/campus-link/admin/node_modules/pathe/dist/index.mjs';
 
 const serverAssets = [{"baseName":"server","dir":"/Users/marquis/campus-link/admin/server/assets"}];
 
@@ -42,15 +26,48 @@ for (const asset of serverAssets) {
   assets$1.mount(asset.baseName, unstorage_47drivers_47fs({ base: asset.dir, ignore: (asset?.ignore || []) }));
 }
 
+// @ts-check
+
+
+/**
+ * @param {string} item
+ */
+const normalizeFsKey = item => item.replaceAll(':', '_');
+
+/**
+ * @param {{ base: string }} opts
+ */
+const _47Users_47marquis_47campus_45link_47admin_47node_modules_47nuxt_47dist_47core_47runtime_47nitro_47cache_45driver_46js = defineDriver((opts) => {
+  const fs = fsDriver({ base: opts.base });
+  const lru = lruCache({ max: 1000 });
+
+  return {
+    ...fs, // fall back to file system - only the bottom three methods are used in renderer
+    async setItem (key, value, opts) {
+      await Promise.all([
+        fs.setItem?.(normalizeFsKey(key), value, opts),
+        lru.setItem?.(key, value, opts),
+      ]);
+    },
+    async hasItem (key, opts) {
+      return await lru.hasItem(key, opts) || await fs.hasItem(normalizeFsKey(key), opts)
+    },
+    async getItem (key, opts) {
+      return await lru.getItem(key, opts) || await fs.getItem(normalizeFsKey(key), opts)
+    },
+  }
+});
+
 const storage = createStorage({});
 
 storage.mount('/assets', assets$1);
 
+storage.mount('internal:nuxt:prerender', _47Users_47marquis_47campus_45link_47admin_47node_modules_47nuxt_47dist_47core_47runtime_47nitro_47cache_45driver_46js({"driver":"/Users/marquis/campus-link/admin/node_modules/nuxt/dist/core/runtime/nitro/cache-driver.js","base":"/Users/marquis/campus-link/admin/.nuxt/cache/nitro/prerender"}));
+storage.mount('data', fsDriver({"driver":"fsLite","base":"./.data/kv"}));
 storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/marquis/campus-link/admin"}));
 storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/marquis/campus-link/admin/server"}));
 storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/marquis/campus-link/admin/.nuxt"}));
 storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/marquis/campus-link/admin/.nuxt/cache"}));
-storage.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"/Users/marquis/campus-link/admin/.data/kv"}));
 
 function useStorage(base = "") {
   return base ? prefixStorage(storage, base) : storage;
@@ -623,7 +640,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "dev",
+    "buildId": "d8859b34-3936-442d-974f-f6a5f360ec97",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -642,11 +659,16 @@ const _inlineRuntimeConfig = {
         "headers": {
           "cache-control": "public, max-age=1, immutable"
         }
+      },
+      "/_nuxt/**": {
+        "headers": {
+          "cache-control": "public, max-age=31536000, immutable"
+        }
       }
     }
   },
   "public": {
-    "apiBase": "http://localhost:3000/api",
+    "apiBase": "https://campus-link-backend-hq.onrender.com/api",
     "appUrl": "http://localhost:3002",
     "firebaseApiKey": "",
     "firebaseAuthDomain": "",
@@ -840,7 +862,7 @@ function hasReqHeader(event, name, includes) {
 }
 function normalizeError(error, isDev) {
   const cwd = typeof process.cwd === "function" ? process.cwd() : "/";
-  const stack = (error.unhandled || error.fatal) ? [] : (error.stack || "").split("\n").splice(1).filter((line) => line.includes("at ")).map((line) => {
+  const stack = (error.stack || "").split("\n").splice(1).filter((line) => line.includes("at ")).map((line) => {
     const text = line.replace(cwd + "/", "./").replace("webpack:/", "").replace("file://", "").trim();
     return {
       text,
@@ -865,7 +887,7 @@ const errorHandler$0 = (async function errorhandler(error, event) {
     statusCode,
     statusMessage,
     message,
-    stack: statusCode !== 404 ? `<pre>${stack.map((i) => `<span class="stack${i.internal ? " internal" : ""}">${i.text}</span>`).join("\n")}</pre>` : "",
+    stack: "",
     // TODO: check and validate error.data for serialisation into query
     data: error.data
   };
@@ -897,10 +919,7 @@ const errorHandler$0 = (async function errorhandler(error, event) {
     }
   ).catch(() => null);
   if (!res) {
-    const { template } = await Promise.resolve().then(function () { return errorDev; }) ;
-    {
-      errorObject.description = errorObject.message;
-    }
+    const { template } = await import('../_/error-500.mjs');
     if (event.handled) {
       return;
     }
@@ -923,19 +942,14 @@ function defineNitroErrorHandler(handler) {
 }
 
 const errorHandler$1 = defineNitroErrorHandler(
-  async function defaultNitroErrorHandler(error, event) {
-    const res = await defaultHandler(error, event);
-    if (!event.node?.res.headersSent) {
-      setResponseHeaders(event, res.headers);
-    }
+  function defaultNitroErrorHandler(error, event) {
+    const res = defaultHandler(error, event);
+    setResponseHeaders(event, res.headers);
     setResponseStatus(event, res.status, res.statusText);
-    return send(
-      event,
-      typeof res.body === "string" ? res.body : JSON.stringify(res.body, null, 2)
-    );
+    return send(event, JSON.stringify(res.body, null, 2));
   }
 );
-async function defaultHandler(error, event, opts) {
+function defaultHandler(error, event, opts) {
   const isSensitive = error.unhandled || error.fatal;
   const statusCode = error.statusCode || 500;
   const statusMessage = error.statusMessage || "Server Error";
@@ -952,21 +966,13 @@ async function defaultHandler(error, event, opts) {
       };
     }
   }
-  await loadStackTrace(error).catch(consola.error);
-  const youch = new Youch();
   if (isSensitive && !opts?.silent) {
     const tags = [error.unhandled && "[unhandled]", error.fatal && "[fatal]"].filter(Boolean).join(" ");
-    const ansiError = await (await youch.toANSI(error)).replaceAll(process.cwd(), ".");
-    consola.error(
-      `[request error] ${tags} [${event.method}] ${url}
-
-`,
-      ansiError
-    );
+    console.error(`[request error] ${tags} [${event.method}] ${url}
+`, error);
   }
-  const useJSON = opts?.json ?? !getRequestHeader(event, "accept")?.includes("text/html");
   const headers = {
-    "content-type": useJSON ? "application/json" : "text/html",
+    "content-type": "application/json",
     // Prevent browser from guessing the MIME types of resources.
     "x-content-type-options": "nosniff",
     // Prevent error page from being embedded in an iframe
@@ -974,71 +980,26 @@ async function defaultHandler(error, event, opts) {
     // Prevent browsers from sending the Referer header
     "referrer-policy": "no-referrer",
     // Disable the execution of any js
-    "content-security-policy": "script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self';"
+    "content-security-policy": "script-src 'none'; frame-ancestors 'none';"
   };
+  setResponseStatus(event, statusCode, statusMessage);
   if (statusCode === 404 || !getResponseHeader(event, "cache-control")) {
     headers["cache-control"] = "no-cache";
   }
-  const body = useJSON ? {
+  const body = {
     error: true,
-    url,
+    url: url.href,
     statusCode,
     statusMessage,
-    message: error.message,
-    data: error.data,
-    stack: error.stack?.split("\n").map((line) => line.trim())
-  } : await youch.toHTML(error, {
-    request: {
-      url: url.href,
-      method: event.method,
-      headers: getRequestHeaders(event)
-    }
-  });
+    message: isSensitive ? "Server Error" : error.message,
+    data: isSensitive ? void 0 : error.data
+  };
   return {
     status: statusCode,
     statusText: statusMessage,
     headers,
     body
   };
-}
-async function loadStackTrace(error) {
-  if (!(error instanceof Error)) {
-    return;
-  }
-  const parsed = await new ErrorParser().defineSourceLoader(sourceLoader).parse(error);
-  const stack = error.message + "\n" + parsed.frames.map((frame) => fmtFrame(frame)).join("\n");
-  Object.defineProperty(error, "stack", { value: stack });
-  if (error.cause) {
-    await loadStackTrace(error.cause).catch(consola.error);
-  }
-}
-async function sourceLoader(frame) {
-  if (!frame.fileName || frame.fileType !== "fs" || frame.type === "native") {
-    return;
-  }
-  if (frame.type === "app") {
-    const rawSourceMap = await readFile(`${frame.fileName}.map`, "utf8").catch(() => {
-    });
-    if (rawSourceMap) {
-      const consumer = await new SourceMapConsumer(rawSourceMap);
-      const originalPosition = consumer.originalPositionFor({ line: frame.lineNumber, column: frame.columnNumber });
-      if (originalPosition.source && originalPosition.line) {
-        frame.fileName = resolve(dirname(frame.fileName), originalPosition.source);
-        frame.lineNumber = originalPosition.line;
-        frame.columnNumber = originalPosition.column || 0;
-      }
-    }
-  }
-  const contents = await readFile(frame.fileName, "utf8").catch(() => {
-  });
-  return contents ? { contents } : void 0;
-}
-function fmtFrame(frame) {
-  if (frame.type === "native") {
-    return frame.raw;
-  }
-  const src = `${frame.fileName || ""}:${frame.lineNumber}:${frame.columnNumber})`;
-  return frame.functionName ? `at ${frame.functionName} (${src}` : `at ${src}`;
 }
 
 const errorHandlers = [errorHandler$0, errorHandler$1];
@@ -1058,106 +1019,18 @@ async function errorHandler(error, event) {
   // H3 will handle fallback
 }
 
-const rootDir = "/Users/marquis/campus-link/admin";
-
-const appHead = {"meta":[{"charset":"utf-8"},{"name":"description","content":"Promote products on campus and earn commissions"},{"name":"viewport","content":"width=device-width, initial-scale=1"}],"link":[{"rel":"stylesheet","href":"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"}],"style":[],"script":[],"noscript":[],"title":"CampusLink — Promote & Earn"};
-
-const appRootTag = "div";
-
-const appRootAttrs = {"id":"__nuxt"};
-
-const appTeleportTag = "div";
-
-const appTeleportAttrs = {"id":"teleports"};
-
-const appId = "nuxt-app";
-
-const devReducers = {
-  VNode: (data) => isVNode(data) ? { type: data.type, props: data.props } : void 0,
-  URL: (data) => data instanceof URL ? data.toString() : void 0
-};
-const asyncContext = getContext("nuxt-dev", { asyncContext: true, AsyncLocalStorage });
-const _K6IWUbTzZPqHZ0v2HJA_vmvZH5tQ7lTPPWc67w7RRy4 = (nitroApp) => {
-  const handler = nitroApp.h3App.handler;
-  nitroApp.h3App.handler = (event) => {
-    return asyncContext.callAsync({ logs: [], event }, () => handler(event));
-  };
-  onConsoleLog((_log) => {
-    const ctx = asyncContext.tryUse();
-    if (!ctx) {
-      return;
-    }
-    const rawStack = captureRawStackTrace();
-    if (!rawStack || rawStack.includes("runtime/vite-node.mjs")) {
-      return;
-    }
-    const trace = [];
-    let filename = "";
-    for (const entry of parseRawStackTrace(rawStack)) {
-      if (entry.source === globalThis._importMeta_.url) {
-        continue;
-      }
-      if (EXCLUDE_TRACE_RE.test(entry.source)) {
-        continue;
-      }
-      filename ||= entry.source.replace(withTrailingSlash(rootDir), "");
-      trace.push({
-        ...entry,
-        source: entry.source.startsWith("file://") ? entry.source.replace("file://", "") : entry.source
-      });
-    }
-    const log = {
-      ..._log,
-      // Pass along filename to allow the client to display more info about where log comes from
-      filename,
-      // Clean up file names in stack trace
-      stack: trace
-    };
-    ctx.logs.push(log);
-  });
-  nitroApp.hooks.hook("afterResponse", () => {
-    const ctx = asyncContext.tryUse();
-    if (!ctx) {
-      return;
-    }
-    return nitroApp.hooks.callHook("dev:ssr-logs", { logs: ctx.logs, path: ctx.event.path });
-  });
-  nitroApp.hooks.hook("render:html", (htmlContext) => {
-    const ctx = asyncContext.tryUse();
-    if (!ctx) {
-      return;
-    }
-    try {
-      const reducers = Object.assign(/* @__PURE__ */ Object.create(null), devReducers, ctx.event.context._payloadReducers);
-      htmlContext.bodyAppend.unshift(`<script type="application/json" data-nuxt-logs="${appId}">${stringify(ctx.logs, reducers)}<\/script>`);
-    } catch (e) {
-      const shortError = e instanceof Error && "toString" in e ? ` Received \`${e.toString()}\`.` : "";
-      console.warn(`[nuxt] Failed to stringify dev server logs.${shortError} You can define your own reducer/reviver for rich types following the instructions in https://nuxt.com/docs/api/composables/use-nuxt-app#payload.`);
-    }
-  });
-};
-const EXCLUDE_TRACE_RE = /\/node_modules\/(?:.*\/)?(?:nuxt|nuxt-nightly|nuxt-edge|nuxt3|consola|@vue)\/|core\/runtime\/nitro/;
-function onConsoleLog(callback) {
-  consola$1.addReporter({
-    log(logObj) {
-      callback(logObj);
-    }
-  });
-  consola$1.wrapConsole();
-}
-
 const plugins = [
-  _K6IWUbTzZPqHZ0v2HJA_vmvZH5tQ7lTPPWc67w7RRy4
+  
 ];
 
 const assets = {};
 
 function readAsset (id) {
-  const serverDir = dirname$1(fileURLToPath(globalThis._importMeta_.url));
-  return promises.readFile(resolve$1(serverDir, assets[id].path))
+  const serverDir = dirname(fileURLToPath(globalThis._importMeta_.url));
+  return promises.readFile(resolve(serverDir, assets[id].path))
 }
 
-const publicAssetBases = {"/_nuxt/builds/meta/":{"maxAge":31536000},"/_nuxt/builds/":{"maxAge":1}};
+const publicAssetBases = {"/_nuxt/builds/meta/":{"maxAge":31536000},"/_nuxt/builds/":{"maxAge":1},"/_nuxt/":{"maxAge":31536000}};
 
 function isPublicAssetURL(id = '') {
   if (assets[id]) {
@@ -1239,11 +1112,10 @@ const _S87xkc = eventHandler((event) => {
   return readAsset(id);
 });
 
-const _lazy_4PJY4q = () => Promise.resolve().then(function () { return renderer$1; });
+const _lazy_4PJY4q = () => import('../_/renderer.mjs');
 
 const handlers = [
   { route: '', handler: _S87xkc, lazy: false, middleware: true, method: undefined },
-  { route: '/__nuxt_error', handler: _lazy_4PJY4q, lazy: true, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_4PJY4q, lazy: true, middleware: false, method: undefined }
 ];
 
@@ -1265,7 +1137,7 @@ function createNitroApp() {
     }
   };
   const h3App = createApp({
-    debug: destr(true),
+    debug: destr(false),
     onError: (error, event) => {
       captureError(error, { event, tags: ["request"] });
       return errorHandler(error, event);
@@ -1427,626 +1299,10 @@ function defineRenderHandler(render) {
   });
 }
 
-const scheduledTasks = false;
-
-const tasks = {
-  
-};
-
-const __runningTasks__ = {};
-async function runTask(name, {
-  payload = {},
-  context = {}
-} = {}) {
-  if (__runningTasks__[name]) {
-    return __runningTasks__[name];
-  }
-  if (!(name in tasks)) {
-    throw createError({
-      message: `Task \`${name}\` is not available!`,
-      statusCode: 404
-    });
-  }
-  if (!tasks[name].resolve) {
-    throw createError({
-      message: `Task \`${name}\` is not implemented!`,
-      statusCode: 501
-    });
-  }
-  const handler = await tasks[name].resolve();
-  const taskEvent = { name, payload, context };
-  __runningTasks__[name] = handler.run(taskEvent);
-  try {
-    const res = await __runningTasks__[name];
-    return res;
-  } finally {
-    delete __runningTasks__[name];
-  }
-}
-
-if (!globalThis.crypto) {
-  globalThis.crypto = nodeCrypto.webcrypto;
-}
-const { NITRO_NO_UNIX_SOCKET, NITRO_DEV_WORKER_ID } = process.env;
-trapUnhandledNodeErrors();
-parentPort?.on("message", (msg) => {
-  if (msg && msg.event === "shutdown") {
-    shutdown();
-  }
-});
 const nitroApp = useNitroApp();
-const server = new Server(toNodeListener(nitroApp.h3App));
-let listener;
-listen().catch(() => listen(
-  true
-  /* use random port */
-)).catch((error) => {
-  console.error("Dev worker failed to listen:", error);
-  return shutdown();
-});
-nitroApp.router.get(
-  "/_nitro/tasks",
-  defineEventHandler(async (event) => {
-    const _tasks = await Promise.all(
-      Object.entries(tasks).map(async ([name, task]) => {
-        const _task = await task.resolve?.();
-        return [name, { description: _task?.meta?.description }];
-      })
-    );
-    return {
-      tasks: Object.fromEntries(_tasks),
-      scheduledTasks
-    };
-  })
-);
-nitroApp.router.use(
-  "/_nitro/tasks/:name",
-  defineEventHandler(async (event) => {
-    const name = getRouterParam(event, "name");
-    const payload = {
-      ...getQuery$1(event),
-      ...await readBody(event).then((r) => r?.payload).catch(() => ({}))
-    };
-    return await runTask(name, { payload });
-  })
-);
-function listen(useRandomPort = Boolean(
-  NITRO_NO_UNIX_SOCKET || process.versions.webcontainer || "Bun" in globalThis && process.platform === "win32"
-)) {
-  return new Promise((resolve, reject) => {
-    try {
-      listener = server.listen(useRandomPort ? 0 : getSocketAddress(), () => {
-        const address = server.address();
-        parentPort?.postMessage({
-          event: "listen",
-          address: typeof address === "string" ? { socketPath: address } : { host: "localhost", port: address?.port }
-        });
-        resolve();
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
-function getSocketAddress() {
-  const socketName = `nitro-worker-${process.pid}-${threadId}-${NITRO_DEV_WORKER_ID}-${Math.round(Math.random() * 1e4)}.sock`;
-  if (process.platform === "win32") {
-    return join(String.raw`\\.\pipe`, socketName);
-  }
-  if (process.platform === "linux") {
-    const nodeMajor = Number.parseInt(process.versions.node.split(".")[0], 10);
-    if (nodeMajor >= 20) {
-      return `\0${socketName}`;
-    }
-  }
-  return join(tmpdir(), socketName);
-}
-async function shutdown() {
-  server.closeAllConnections?.();
-  await Promise.all([
-    new Promise((resolve) => listener?.close(resolve)),
-    nitroApp.hooks.callHook("close").catch(console.error)
-  ]);
-  parentPort?.postMessage({ event: "exit" });
-}
+const localFetch = nitroApp.localFetch;
+const closePrerenderer = () => nitroApp.hooks.callHook("close");
+trapUnhandledNodeErrors();
 
-const _messages = { "appName": "Nuxt", "version": "", "statusCode": 500, "statusMessage": "Server error", "description": "An error occurred in the application and the page could not be served. If you are the application owner, check your server logs for details.", "stack": "" };
-const template$1 = (messages) => {
-  messages = { ..._messages, ...messages };
-  return '<!DOCTYPE html><html lang="en"><head><title>' + messages.statusCode + " - " + messages.statusMessage + " | " + messages.appName + `</title><meta charset="utf-8"><meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0" name="viewport"><style>.spotlight{background:linear-gradient(45deg,#00dc82,#36e4da 50%,#0047e1);bottom:-40vh;filter:blur(30vh);height:60vh;opacity:.8}*,:after,:before{border-color:var(--un-default-border-color,#e5e7eb);border-style:solid;border-width:0;box-sizing:border-box}:after,:before{--un-content:""}html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-moz-tab-size:4;tab-size:4;-webkit-tap-highlight-color:transparent}body{line-height:inherit;margin:0}h1{font-size:inherit;font-weight:inherit}pre{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-size:1em;font-variation-settings:normal}h1,p,pre{margin:0}*,:after,:before{--un-rotate:0;--un-rotate-x:0;--un-rotate-y:0;--un-rotate-z:0;--un-scale-x:1;--un-scale-y:1;--un-scale-z:1;--un-skew-x:0;--un-skew-y:0;--un-translate-x:0;--un-translate-y:0;--un-translate-z:0;--un-pan-x: ;--un-pan-y: ;--un-pinch-zoom: ;--un-scroll-snap-strictness:proximity;--un-ordinal: ;--un-slashed-zero: ;--un-numeric-figure: ;--un-numeric-spacing: ;--un-numeric-fraction: ;--un-border-spacing-x:0;--un-border-spacing-y:0;--un-ring-offset-shadow:0 0 transparent;--un-ring-shadow:0 0 transparent;--un-shadow-inset: ;--un-shadow:0 0 transparent;--un-ring-inset: ;--un-ring-offset-width:0px;--un-ring-offset-color:#fff;--un-ring-width:0px;--un-ring-color:rgba(147,197,253,.5);--un-blur: ;--un-brightness: ;--un-contrast: ;--un-drop-shadow: ;--un-grayscale: ;--un-hue-rotate: ;--un-invert: ;--un-saturate: ;--un-sepia: ;--un-backdrop-blur: ;--un-backdrop-brightness: ;--un-backdrop-contrast: ;--un-backdrop-grayscale: ;--un-backdrop-hue-rotate: ;--un-backdrop-invert: ;--un-backdrop-opacity: ;--un-backdrop-saturate: ;--un-backdrop-sepia: }.fixed{position:fixed}.left-0{left:0}.right-0{right:0}.z-10{z-index:10}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.h-auto{height:auto}.min-h-screen{min-height:100vh}.flex{display:flex}.flex-1{flex:1 1 0%}.flex-col{flex-direction:column}.overflow-y-auto{overflow-y:auto}.rounded-t-md{border-top-left-radius:.375rem;border-top-right-radius:.375rem}.bg-black\\/5{background-color:#0000000d}.bg-white{--un-bg-opacity:1;background-color:rgb(255 255 255/var(--un-bg-opacity))}.p-8{padding:2rem}.px-10{padding-left:2.5rem;padding-right:2.5rem}.pt-14{padding-top:3.5rem}.text-6xl{font-size:3.75rem;line-height:1}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-black{--un-text-opacity:1;color:rgb(0 0 0/var(--un-text-opacity))}.font-light{font-weight:300}.font-medium{font-weight:500}.leading-tight{line-height:1.25}.font-sans{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}@media (prefers-color-scheme:dark){.dark\\:bg-black{--un-bg-opacity:1;background-color:rgb(0 0 0/var(--un-bg-opacity))}.dark\\:bg-white\\/10{background-color:#ffffff1a}.dark\\:text-white{--un-text-opacity:1;color:rgb(255 255 255/var(--un-text-opacity))}}@media (min-width:640px){.sm\\:text-2xl{font-size:1.5rem;line-height:2rem}.sm\\:text-8xl{font-size:6rem;line-height:1}}</style><script>!function(){const e=document.createElement("link").relList;if(!(e&&e.supports&&e.supports("modulepreload"))){for(const e of document.querySelectorAll('link[rel="modulepreload"]'))r(e);new MutationObserver((e=>{for(const o of e)if("childList"===o.type)for(const e of o.addedNodes)"LINK"===e.tagName&&"modulepreload"===e.rel&&r(e)})).observe(document,{childList:!0,subtree:!0})}function r(e){if(e.ep)return;e.ep=!0;const r=function(e){const r={};return e.integrity&&(r.integrity=e.integrity),e.referrerPolicy&&(r.referrerPolicy=e.referrerPolicy),"use-credentials"===e.crossOrigin?r.credentials="include":"anonymous"===e.crossOrigin?r.credentials="omit":r.credentials="same-origin",r}(e);fetch(e.href,r)}}();<\/script></head><body class="antialiased bg-white dark:bg-black dark:text-white flex flex-col font-sans min-h-screen pt-14 px-10 text-black"><div class="fixed left-0 right-0 spotlight"></div><h1 class="font-medium mb-6 sm:text-8xl text-6xl">` + messages.statusCode + '</h1><p class="font-light leading-tight mb-8 sm:text-2xl text-xl">' + messages.description + '</p><div class="bg-black/5 bg-white dark:bg-white/10 flex-1 h-auto overflow-y-auto rounded-t-md"><pre class="font-light leading-tight p-8 text-xl z-10">' + messages.stack + "</pre></div></body></html>";
-};
-
-const errorDev = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  template: template$1
-});
-
-const Vue3 = version[0] === "3";
-
-function resolveUnref(r) {
-  return typeof r === "function" ? r() : unref(r);
-}
-function resolveUnrefHeadInput(ref) {
-  if (ref instanceof Promise || ref instanceof Date || ref instanceof RegExp)
-    return ref;
-  const root = resolveUnref(ref);
-  if (!ref || !root)
-    return root;
-  if (Array.isArray(root))
-    return root.map((r) => resolveUnrefHeadInput(r));
-  if (typeof root === "object") {
-    const resolved = {};
-    for (const k in root) {
-      if (!Object.prototype.hasOwnProperty.call(root, k)) {
-        continue;
-      }
-      if (k === "titleTemplate" || k[0] === "o" && k[1] === "n") {
-        resolved[k] = unref(root[k]);
-        continue;
-      }
-      resolved[k] = resolveUnrefHeadInput(root[k]);
-    }
-    return resolved;
-  }
-  return root;
-}
-
-const VueReactivityPlugin = defineHeadPlugin({
-  hooks: {
-    "entries:resolve": (ctx) => {
-      for (const entry of ctx.entries)
-        entry.resolvedInput = resolveUnrefHeadInput(entry.input);
-    }
-  }
-});
-
-const headSymbol = "usehead";
-function vueInstall(head) {
-  const plugin = {
-    install(app) {
-      if (Vue3) {
-        app.config.globalProperties.$unhead = head;
-        app.config.globalProperties.$head = head;
-        app.provide(headSymbol, head);
-      }
-    }
-  };
-  return plugin.install;
-}
-function createServerHead(options = {}) {
-  const head = createServerHead$1(options);
-  head.use(VueReactivityPlugin);
-  head.install = vueInstall(head);
-  return head;
-}
-
-const unheadPlugins = true ? [CapoPlugin({ track: true })] : [];
-
-const renderSSRHeadOptions = {"omitLineBreaks":false};
-
-function buildAssetsDir() {
-  return useRuntimeConfig().app.buildAssetsDir;
-}
-function buildAssetsURL(...path) {
-  return joinRelativeURL(publicAssetsURL(), buildAssetsDir(), ...path);
-}
-function publicAssetsURL(...path) {
-  const app = useRuntimeConfig().app;
-  const publicBase = app.cdnURL || app.baseURL;
-  return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
-}
-
-globalThis.__buildAssetsURL = buildAssetsURL;
-globalThis.__publicAssetsURL = publicAssetsURL;
-const getClientManifest = () => import('file:///Users/marquis/campus-link/admin/.nuxt/dist/server/client.manifest.mjs').then((r) => r.default || r).then((r) => typeof r === "function" ? r() : r);
-const getSSRStyles = lazyCachedFunction(() => Promise.resolve().then(function () { return styles$1; }).then((r) => r.default || r));
-const getSPARenderer = lazyCachedFunction(async () => {
-  const manifest = await getClientManifest();
-  const spaTemplate = await Promise.resolve().then(function () { return _virtual__spaTemplate; }).then((r) => r.template).catch(() => "").then((r) => {
-    {
-      return APP_ROOT_OPEN_TAG + r + APP_ROOT_CLOSE_TAG;
-    }
-  });
-  const options = {
-    manifest,
-    renderToString: () => spaTemplate,
-    buildAssetsURL
-  };
-  const renderer = createRenderer(() => () => {
-  }, options);
-  const result = await renderer.renderToString({});
-  const renderToString = (ssrContext) => {
-    const config = useRuntimeConfig(ssrContext.event);
-    ssrContext.modules = ssrContext.modules || /* @__PURE__ */ new Set();
-    ssrContext.payload.serverRendered = false;
-    ssrContext.config = {
-      public: config.public,
-      app: config.app
-    };
-    return Promise.resolve(result);
-  };
-  return {
-    rendererContext: renderer.rendererContext,
-    renderToString
-  };
-});
-const ISLAND_SUFFIX_RE = /\.json(\?.*)?$/;
-async function getIslandContext(event) {
-  let url = event.path || "";
-  const componentParts = url.substring("/__nuxt_island".length + 1).replace(ISLAND_SUFFIX_RE, "").split("_");
-  const hashId = componentParts.length > 1 ? componentParts.pop() : void 0;
-  const componentName = componentParts.join("_");
-  const context = event.method === "GET" ? getQuery$1(event) : await readBody(event);
-  const ctx = {
-    url: "/",
-    ...context,
-    id: hashId,
-    name: componentName,
-    props: destr(context.props) || {},
-    slots: {},
-    components: {}
-  };
-  return ctx;
-}
-const HAS_APP_TELEPORTS = !!(appTeleportAttrs.id);
-const APP_TELEPORT_OPEN_TAG = HAS_APP_TELEPORTS ? `<${appTeleportTag}${propsToString(appTeleportAttrs)}>` : "";
-const APP_TELEPORT_CLOSE_TAG = HAS_APP_TELEPORTS ? `</${appTeleportTag}>` : "";
-const APP_ROOT_OPEN_TAG = `<${appRootTag}${propsToString(appRootAttrs)}>`;
-const APP_ROOT_CLOSE_TAG = `</${appRootTag}>`;
-const PAYLOAD_URL_RE = /\/_payload.json(\?.*)?$/ ;
-const ROOT_NODE_REGEX = new RegExp(`^<${appRootTag}[^>]*>([\\s\\S]*)<\\/${appRootTag}>$`);
-const renderer = defineRenderHandler(async (event) => {
-  const nitroApp = useNitroApp();
-  const ssrError = event.path.startsWith("/__nuxt_error") ? getQuery$1(event) : null;
-  if (ssrError && ssrError.statusCode) {
-    ssrError.statusCode = Number.parseInt(ssrError.statusCode);
-  }
-  if (ssrError && !("__unenv__" in event.node.req)) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: "Page Not Found: /__nuxt_error"
-    });
-  }
-  const isRenderingIsland = event.path.startsWith("/__nuxt_island");
-  const islandContext = isRenderingIsland ? await getIslandContext(event) : void 0;
-  let url = ssrError?.url || islandContext?.url || event.path;
-  const isRenderingPayload = PAYLOAD_URL_RE.test(url) && !isRenderingIsland;
-  if (isRenderingPayload) {
-    url = url.substring(0, url.lastIndexOf("/")) || "/";
-    event._path = url;
-    event.node.req.url = url;
-  }
-  const routeOptions = getRouteRules(event);
-  const head = createServerHead({
-    plugins: unheadPlugins
-  });
-  const headEntryOptions = { mode: "server" };
-  if (!isRenderingIsland) {
-    head.push(appHead, headEntryOptions);
-  }
-  const ssrContext = {
-    url,
-    event,
-    runtimeConfig: useRuntimeConfig(event),
-    noSSR: true,
-    head,
-    error: !!ssrError,
-    nuxt: void 0,
-    /* NuxtApp */
-    payload: ssrError ? { error: ssrError } : {},
-    _payloadReducers: /* @__PURE__ */ Object.create(null),
-    modules: /* @__PURE__ */ new Set(),
-    islandContext
-  };
-  const renderer = await getSPARenderer() ;
-  const _rendered = await renderer.renderToString(ssrContext).catch(async (error) => {
-    if (ssrContext._renderResponse && error.message === "skipping render") {
-      return {};
-    }
-    const _err = !ssrError && ssrContext.payload?.error || error;
-    await ssrContext.nuxt?.hooks.callHook("app:error", _err);
-    throw _err;
-  });
-  await ssrContext.nuxt?.hooks.callHook("app:rendered", { ssrContext, renderResult: _rendered });
-  if (ssrContext._renderResponse) {
-    return ssrContext._renderResponse;
-  }
-  if (ssrContext.payload?.error && !ssrError) {
-    throw ssrContext.payload.error;
-  }
-  if (isRenderingPayload) {
-    const response2 = renderPayloadResponse(ssrContext);
-    return response2;
-  }
-  const inlinedStyles = isRenderingIsland ? await renderInlineStyles(ssrContext.modules ?? []) : [];
-  const NO_SCRIPTS = routeOptions.experimentalNoScripts;
-  const { styles, scripts } = getRequestDependencies(ssrContext, renderer.rendererContext);
-  if (ssrContext._preloadManifest) {
-    head.push({
-      link: [
-        { rel: "preload", as: "fetch", fetchpriority: "low", crossorigin: "anonymous", href: buildAssetsURL(`builds/meta/${ssrContext.runtimeConfig.app.buildId}.json`) }
-      ]
-    }, { ...headEntryOptions, tagPriority: "low" });
-  }
-  if (inlinedStyles.length) {
-    head.push({ style: inlinedStyles });
-  }
-  {
-    const link = [];
-    for (const resource of Object.values(styles)) {
-      if ("inline" in getQuery(resource.file)) {
-        continue;
-      }
-      if (!isRenderingIsland || resource.file.includes("scoped") && !resource.file.includes("pages/")) {
-        link.push({ rel: "stylesheet", href: renderer.rendererContext.buildAssetsURL(resource.file), crossorigin: "" });
-      }
-    }
-    if (link.length) {
-      head.push({ link }, headEntryOptions);
-    }
-  }
-  if (!NO_SCRIPTS && !isRenderingIsland) {
-    head.push({
-      link: getPreloadLinks(ssrContext, renderer.rendererContext)
-    }, headEntryOptions);
-    head.push({
-      link: getPrefetchLinks(ssrContext, renderer.rendererContext)
-    }, headEntryOptions);
-    head.push({
-      script: renderPayloadJsonScript({ ssrContext, data: ssrContext.payload }) 
-    }, {
-      ...headEntryOptions,
-      // this should come before another end of body scripts
-      tagPosition: "bodyClose",
-      tagPriority: "high"
-    });
-  }
-  if (!routeOptions.experimentalNoScripts && !isRenderingIsland) {
-    head.push({
-      script: Object.values(scripts).map((resource) => ({
-        type: resource.module ? "module" : null,
-        src: renderer.rendererContext.buildAssetsURL(resource.file),
-        defer: resource.module ? null : true,
-        // if we are rendering script tag payloads that import an async payload
-        // we need to ensure this resolves before executing the Nuxt entry
-        tagPosition: "head",
-        crossorigin: ""
-      }))
-    }, headEntryOptions);
-  }
-  const { headTags, bodyTags, bodyTagsOpen, htmlAttrs, bodyAttrs } = await renderSSRHead(head, renderSSRHeadOptions);
-  const htmlContext = {
-    island: isRenderingIsland,
-    htmlAttrs: htmlAttrs ? [htmlAttrs] : [],
-    head: normalizeChunks([headTags]),
-    bodyAttrs: bodyAttrs ? [bodyAttrs] : [],
-    bodyPrepend: normalizeChunks([bodyTagsOpen, ssrContext.teleports?.body]),
-    body: [
-      replaceIslandTeleports(ssrContext, _rendered.html) ,
-      APP_TELEPORT_OPEN_TAG + (HAS_APP_TELEPORTS ? joinTags([ssrContext.teleports?.[`#${appTeleportAttrs.id}`]]) : "") + APP_TELEPORT_CLOSE_TAG
-    ],
-    bodyAppend: [bodyTags]
-  };
-  await nitroApp.hooks.callHook("render:html", htmlContext, { event });
-  if (isRenderingIsland && islandContext) {
-    const islandHead = {};
-    for (const entry of head.headEntries()) {
-      for (const [key, value] of Object.entries(resolveUnrefHeadInput(entry.input))) {
-        const currentValue = islandHead[key];
-        if (Array.isArray(currentValue)) {
-          currentValue.push(...value);
-        }
-        islandHead[key] = value;
-      }
-    }
-    islandHead.link ||= [];
-    islandHead.style ||= [];
-    const islandResponse = {
-      id: islandContext.id,
-      head: islandHead,
-      html: getServerComponentHTML(htmlContext.body),
-      components: getClientIslandResponse(ssrContext),
-      slots: getSlotIslandResponse(ssrContext)
-    };
-    await nitroApp.hooks.callHook("render:island", islandResponse, { event, islandContext });
-    const response2 = {
-      body: JSON.stringify(islandResponse, null, 2),
-      statusCode: getResponseStatus(event),
-      statusMessage: getResponseStatusText(event),
-      headers: {
-        "content-type": "application/json;charset=utf-8",
-        "x-powered-by": "Nuxt"
-      }
-    };
-    return response2;
-  }
-  const response = {
-    body: renderHTMLDocument(htmlContext),
-    statusCode: getResponseStatus(event),
-    statusMessage: getResponseStatusText(event),
-    headers: {
-      "content-type": "text/html;charset=utf-8",
-      "x-powered-by": "Nuxt"
-    }
-  };
-  return response;
-});
-function lazyCachedFunction(fn) {
-  let res = null;
-  return () => {
-    if (res === null) {
-      res = fn().catch((err) => {
-        res = null;
-        throw err;
-      });
-    }
-    return res;
-  };
-}
-function normalizeChunks(chunks) {
-  return chunks.filter(Boolean).map((i) => i.trim());
-}
-function joinTags(tags) {
-  return tags.join("");
-}
-function joinAttrs(chunks) {
-  if (chunks.length === 0) {
-    return "";
-  }
-  return " " + chunks.join(" ");
-}
-function renderHTMLDocument(html) {
-  return `<!DOCTYPE html><html${joinAttrs(html.htmlAttrs)}><head>${joinTags(html.head)}</head><body${joinAttrs(html.bodyAttrs)}>${joinTags(html.bodyPrepend)}${joinTags(html.body)}${joinTags(html.bodyAppend)}</body></html>`;
-}
-async function renderInlineStyles(usedModules) {
-  const styleMap = await getSSRStyles();
-  const inlinedStyles = /* @__PURE__ */ new Set();
-  for (const mod of usedModules) {
-    if (mod in styleMap && styleMap[mod]) {
-      for (const style of await styleMap[mod]()) {
-        inlinedStyles.add(style);
-      }
-    }
-  }
-  return Array.from(inlinedStyles).map((style) => ({ innerHTML: style }));
-}
-function renderPayloadResponse(ssrContext) {
-  return {
-    body: stringify(splitPayload(ssrContext).payload, ssrContext._payloadReducers) ,
-    statusCode: getResponseStatus(ssrContext.event),
-    statusMessage: getResponseStatusText(ssrContext.event),
-    headers: {
-      "content-type": "application/json;charset=utf-8" ,
-      "x-powered-by": "Nuxt"
-    }
-  };
-}
-function renderPayloadJsonScript(opts) {
-  const contents = opts.data ? stringify(opts.data, opts.ssrContext._payloadReducers) : "";
-  const payload = {
-    "type": "application/json",
-    "innerHTML": contents,
-    "data-nuxt-data": appId,
-    "data-ssr": false
-  };
-  {
-    payload.id = "__NUXT_DATA__";
-  }
-  if (opts.src) {
-    payload["data-src"] = opts.src;
-  }
-  const config = uneval(opts.ssrContext.config);
-  return [
-    payload,
-    {
-      innerHTML: `window.__NUXT__={};window.__NUXT__.config=${config}`
-    }
-  ];
-}
-function splitPayload(ssrContext) {
-  const { data, prerenderedAt, ...initial } = ssrContext.payload;
-  return {
-    initial: { ...initial, prerenderedAt },
-    payload: { data, prerenderedAt }
-  };
-}
-function getServerComponentHTML(body) {
-  const match = body[0].match(ROOT_NODE_REGEX);
-  return match?.[1] || body[0];
-}
-const SSR_SLOT_TELEPORT_MARKER = /^uid=([^;]*);slot=(.*)$/;
-const SSR_CLIENT_TELEPORT_MARKER = /^uid=([^;]*);client=(.*)$/;
-const SSR_CLIENT_SLOT_MARKER = /^island-slot=[^;]*;(.*)$/;
-function getSlotIslandResponse(ssrContext) {
-  if (!ssrContext.islandContext || !Object.keys(ssrContext.islandContext.slots).length) {
-    return void 0;
-  }
-  const response = {};
-  for (const [name, slot] of Object.entries(ssrContext.islandContext.slots)) {
-    response[name] = {
-      ...slot,
-      fallback: ssrContext.teleports?.[`island-fallback=${name}`]
-    };
-  }
-  return response;
-}
-function getClientIslandResponse(ssrContext) {
-  if (!ssrContext.islandContext || !Object.keys(ssrContext.islandContext.components).length) {
-    return void 0;
-  }
-  const response = {};
-  for (const [clientUid, component] of Object.entries(ssrContext.islandContext.components)) {
-    const html = ssrContext.teleports?.[clientUid]?.replaceAll("<!--teleport start anchor-->", "") || "";
-    response[clientUid] = {
-      ...component,
-      html,
-      slots: getComponentSlotTeleport(ssrContext.teleports ?? {})
-    };
-  }
-  return response;
-}
-function getComponentSlotTeleport(teleports) {
-  const entries = Object.entries(teleports);
-  const slots = {};
-  for (const [key, value] of entries) {
-    const match = key.match(SSR_CLIENT_SLOT_MARKER);
-    if (match) {
-      const [, slot] = match;
-      if (!slot) {
-        continue;
-      }
-      slots[slot] = value;
-    }
-  }
-  return slots;
-}
-function replaceIslandTeleports(ssrContext, html) {
-  const { teleports, islandContext } = ssrContext;
-  if (islandContext || !teleports) {
-    return html;
-  }
-  for (const key in teleports) {
-    const matchClientComp = key.match(SSR_CLIENT_TELEPORT_MARKER);
-    if (matchClientComp) {
-      const [, uid, clientId] = matchClientComp;
-      if (!uid || !clientId) {
-        continue;
-      }
-      html = html.replace(new RegExp(` data-island-uid="${uid}" data-island-component="${clientId}"[^>]*>`), (full) => {
-        return full + teleports[key];
-      });
-      continue;
-    }
-    const matchSlot = key.match(SSR_SLOT_TELEPORT_MARKER);
-    if (matchSlot) {
-      const [, uid, slot] = matchSlot;
-      if (!uid || !slot) {
-        continue;
-      }
-      html = html.replace(new RegExp(` data-island-uid="${uid}" data-island-slot="${slot}"[^>]*>`), (full) => {
-        return full + teleports[key];
-      });
-    }
-  }
-  return html;
-}
-
-const renderer$1 = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  default: renderer
-});
-
-const styles = {};
-
-const styles$1 = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  default: styles
-});
-
-const template = "";
-
-const _virtual__spaTemplate = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  template: template
-});
-//# sourceMappingURL=index.mjs.map
+export { useStorage as a, useNitroApp as b, closePrerenderer as c, defineRenderHandler as d, getRouteRules as g, localFetch as l, useRuntimeConfig as u };
+//# sourceMappingURL=nitro.mjs.map

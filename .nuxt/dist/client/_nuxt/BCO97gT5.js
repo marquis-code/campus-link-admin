@@ -1,0 +1,1 @@
+import{o as s,c as t,R as r}from"./DnPA9OwQ.js";const n={class:"min-h-screen bg-white text-gray-900 font-['Inter',sans-serif]"},l={__name:"full-screen",setup(o){return(e,a)=>(s(),t("div",n,[r(e.$slots,"default")]))}};export{l as default};
